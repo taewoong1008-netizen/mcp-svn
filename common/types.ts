@@ -6,6 +6,14 @@ export interface SvnConfig {
   username?: string;
   password?: string;
   timeout?: number;
+
+  // ▼ Multi-WC 지원용 신규 필드 (모두 옵셔널, 하위 호환)
+  /** 다중 SVN 루트 (있으면 우선 사용, 없으면 workingDirectory를 단일 루트로 사용) */
+  workingDirectories?: string[];
+  /** Working copy 재귀 탐색 최대 깊이 (기본 5) */
+  maxDiscoveryDepth?: number;
+  /** Working copy 탐색 결과 캐시 TTL (ms, 기본 5분) */
+  discoveryCacheTtlMs?: number;
 }
 
 export interface SvnResponse<T = any> {

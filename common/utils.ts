@@ -9,12 +9,28 @@ import iconv from 'iconv-lite';
  * Crear configuración de SVN desde variables de entorno y parámetros
  */
 export function createSvnConfig(overrides: Partial<SvnConfig> = {}): SvnConfig {
+  // SVN_WORKING_DIRECTORIES: 콤마 구분 다중 루트 (예: "H:/02.회사자료,H:/03.개인작업")
+  const envDirs = process.env.SVN_WORKING_DIRECTORIES
+    ? process.env.SVN_WORKING_DIRECTORIES.split(',').map(s => s.trim()).filter(Boolean)
+    : undefined;
+
   return {
     svnPath: overrides.svnPath || process.env.SVN_PATH || 'svn',
     workingDirectory: overrides.workingDirectory || process.env.SVN_WORKING_DIRECTORY || process.cwd(),
     username: overrides.username || process.env.SVN_USERNAME,
     password: overrides.password || process.env.SVN_PASSWORD,
-    timeout: overrides.timeout || parseInt(process.env.SVN_TIMEOUT || '30000', 10)
+    timeout: overrides.timeout || parseInt(process.env.SVN_TIMEOUT || '30000', 10),
+
+    // ▼ Multi-WC 지원용
+    workingDirectories: overrides.workingDirectories || envDirs,
+    maxDiscoveryDepth: overrides.maxDiscoveryDepth
+      ?? (process.env.SVN_DISCOVERY_MAX_DEPTH
+        ? parseInt(process.env.SVN_DISCOVERY_MAX_DEPTH, 10)
+        : undefined),
+    discoveryCacheTtlMs: overrides.discoveryCacheTtlMs
+      ?? (process.env.SVN_DISCOVERY_CACHE_TTL_MS
+        ? parseInt(process.env.SVN_DISCOVERY_CACHE_TTL_MS, 10)
+        : undefined),
   };
 }
 

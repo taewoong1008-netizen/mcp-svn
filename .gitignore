@@ -51,3 +51,8 @@ docker-compose.yml
 cr3
 autofixer.md
 .grec0ai/vectra-index/index.json
+
+node_modules/
+dist/
+*.log
+.env

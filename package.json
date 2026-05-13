@@ -1,14 +1,14 @@
 {
-  "name": "@grec0/mcp-svn",
-  "version": "0.1.4",
-  "description": "MCP server para integración completa con Subversion (SVN)",
+  "name": "mcp-svn-multi",
+  "version": "0.2.0",
+  "description": "SVN MCP server with multi working-copy support. Fork of @grec0/mcp-svn.",
   "license": "MIT",
-  "author": "@grec0",
-  "homepage": "https://github.com/gcorroto/mcp-svn",
-  "bugs": "https://github.com/gcorroto/mcp-svn/issues",
+  "author": "taewoong1008-netizen",
+  "homepage": "https://github.com/taewoong1008-netizen/mcp-svn",
+  "bugs": "https://github.com/taewoong1008-netizen/mcp-svn/issues",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gcorroto/mcp-svn.git"
+    "url": "git+https://github.com/taewoong1008-netizen/mcp-svn.git"
   },
   "keywords": [
     "mcp",
@@ -16,42 +16,29 @@
     "svn",
     "subversion",
     "version-control",
-    "vcs",
-    "branching",
-    "repository-management"
+    "multi-working-copy"
   ],
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "mcp-svn": "dist/index.js"
+    "mcp-svn-multi": "dist/index.js"
   },
   "files": [
     "dist/**/*",
     "README.md",
     "LICENSE"
   ],
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/",
-    "access": "public"
-  },
   "engines": {
     "node": ">=18.0.0"
   },
   "scripts": {
     "build": "tsc && shx chmod +x dist/*.js",
+    "prepare": "npm run build",
     "watch": "tsc --watch",
     "start": "node dist/index.js",
     "dev": "npm run build && npm run start",
     "inspector": "npx -y @modelcontextprotocol/inspector node dist/index.js",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/tests/**/*.test.ts'",
-    "version:patch": "npm version patch --no-git-tag-version",
-    "version:minor": "npm version minor --no-git-tag-version",
-    "version:major": "npm version major --no-git-tag-version",
-    "prerelease": "npm run build && npm test",
-    "release:patch": "npm run version:patch && npm run prerelease && npm publish",
-    "release:minor": "npm run version:minor && npm run prerelease && npm publish",
-    "release:major": "npm run version:major && npm run prerelease && npm publish",
-    "postpublish": "git add package.json && git commit -m \"chore: bump version to v$(node -p \"require('./package.json').version\")\" && git push"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/tests/**/*.test.ts'"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.6.1",

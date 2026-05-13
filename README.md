@@ -1,3 +1,48 @@
+# mcp-svn-multi
+
+Multi working-copy 지원 SVN MCP 서버. [@grec0/mcp-svn](https://github.com/gcorroto/mcp-svn) fork 본.
+
+## 추가 기능
+- `svn_list_working_copies`: 설정된 루트 아래 모든 working copy 자동 탐색
+- 도구별 path 자동 해석: 모델이 path 전달 시 자동으로 해당 WC를 cwd로 사용
+- 다중 SVN 루트 지원 (콤마 구분)
+
+## 사용법 (Cherry Studio)
+
+\`\`\`json
+{
+  "mcpServers": {
+    "svn": {
+      "command": "npx",
+      "args": ["-y", "github:taewoong1008-netizen/mcp-svn"],
+      "env": {
+        "SVN_PATH": "svn",
+        "SVN_WORKING_DIRECTORIES": "H:\\\\02.회사자료",
+        "SVN_DISCOVERY_MAX_DEPTH": "6",
+        "SVN_DISCOVERY_CACHE_TTL_MS": "600000",
+        "SVN_USERNAME": "<본인 SVN ID>",
+        "SVN_PASSWORD": "<본인 SVN PW>"
+      }
+    }
+  }
+}
+\`\`\`
+
+## 사전 요구사항
+- Node.js 18 이상 (https://nodejs.org/)
+- TortoiseSVN의 command line client (svn이 PATH에 있어야 함)
+
+## 환경변수
+
+| 변수 | 설명 | 기본값 |
+|------|------|--------|
+| `SVN_WORKING_DIRECTORIES` | 콤마 구분 SVN 루트들 | (필수) |
+| `SVN_DISCOVERY_MAX_DEPTH` | 재귀 탐색 최대 깊이 | 5 |
+| `SVN_DISCOVERY_CACHE_TTL_MS` | 발견 결과 캐시 TTL (ms) | 300000 |
+| `SVN_USERNAME` / `SVN_PASSWORD` | SVN 자격증명 | - |
+
+
+
 # SVN MCP Server
 
 Un servidor MCP (Model Context Protocol) completo para integración con Subversion (SVN), diseñado para permitir a agentes de IA gestionar repositorios SVN de manera eficiente.
