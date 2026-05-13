@@ -53,6 +53,5 @@ autofixer.md
 .grec0ai/vectra-index/index.json
 
 node_modules/
-dist/
 *.log
 .env
